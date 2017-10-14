@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Árvore AVL</title>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script src="AVLTree.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+
+            var tree = new AVLTree();
+
+            var getValue = function () {
+                var $txtValue = $("#txtValue");
+                var value = $txtValue.val();
+                if ($.isNumeric(value)) {
+                    $txtValue.val("");
+                    return parseInt(value);
+                }
+                return null;
+            };
+
+            var addValueToTree = function() {
+                var value = getValue();
+                if (value != null) {
+                    tree.AddValue(value);
+                    tree.Draw("myTree");
+                }
+            };
+
+            var findValueInTree = function () {
+                var value = getValue();
+                if (value != null) {
+                    if (tree.FindValue(value))
+                        alert("Encontrado!");
+                    else
+                        alert("Não encontrado!");
+                }
+            };
+
+            var removeValueFromTree = function () {
+                var value = getValue();
+                if (value != null) {
+                    tree.RemoveValue(value);
+                    tree.Draw("myTree");
+                }
+            };
+
+            $(document).ready(function () {
+                $("#btnInsert").click(addValueToTree);
+                $("#btnFind").click(findValueInTree);
+                $("#btnRemove").click(removeValueFromTree);
+            });
+
+        })(jQuery);
+    </script>
+</head>
+<body>
+    <div style="margin: 5px auto; width: 1200px;">
+        <input type="text" id="txtValue" maxlength="3" style="width: 60px;" />
+        <button id="btnInsert">Insert</button>
+        <button id="btnFind">Find</button>
+        <button id="btnRemove">Remove</button>
+    </div>
+    <canvas id="myTree" width="1200" height="600" style="margin: auto; display: block; border: 1px solid black;">
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+</body>
+</html>
